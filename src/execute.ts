@@ -12,7 +12,7 @@ const prepareFiles = async (
   switch (lang) {
     case "javascript":
       fileName = "src.js";
-      filePath = `code-sandbox/${fileName}`;
+      filePath = `sandbox/${fileName}`;
       fs.writeFileSync(filePath, src, (err: Error) => {
         if (err) {
           console.error("Error writing to file:", err);
@@ -22,7 +22,7 @@ const prepareFiles = async (
       });
   }
   fileName = "input.txt";
-  filePath = `code-sandbox/${fileName}`;
+  filePath = `sandbox/${fileName}`;
   fs.writeFileSync(filePath, input, (err: Error) => {
     if (err) {
       console.error("Error writing to file:", err);
@@ -32,7 +32,7 @@ const prepareFiles = async (
   });
 
   fileName = "expected_output.txt";
-  filePath = `code-sandbox/${fileName}`;
+  filePath = `sandbox/${fileName}`;
   fs.writeFileSync(filePath, expectedOutput, (err: Error) => {
     if (err) {
       console.error("Error writing to file:", err);
@@ -42,7 +42,7 @@ const prepareFiles = async (
   });
 
   fileName = "output.txt";
-  filePath = `code-sandbox/${fileName}`;
+  filePath = `sandbox/${fileName}`;
   fs.writeFileSync(filePath, "", (err: Error) => {
     if (err) {
       console.error("Error writing to file:", err);
@@ -52,7 +52,7 @@ const prepareFiles = async (
   });
 
   fileName = "result.txt";
-  filePath = `code-sandbox/${fileName}`;
+  filePath = `sandbox/${fileName}`;
   fs.writeFileSync(filePath, "", (err: Error) => {
     if (err) {
       console.error("Error writing to file:", err);
@@ -81,15 +81,15 @@ const getCommand = (
 
 const getExecutionResult = async (): Promise<execute> => {
   let fileName = "output.txt";
-  let filePath = `code-sandbox/${fileName}`;
+  let filePath = `sandbox/${fileName}`;
   const output: string = await fs.readFileSync(filePath, "utf-8");
 
   fileName = "result.txt";
-  filePath = `code-sandbox/${fileName}`;
+  filePath = `sandbox/${fileName}`;
   const result = await fs.readFileSync(filePath, "utf-8");
 
   fileName = "expected_output.txt";
-  filePath = `code-sandbox/${fileName}`;
+  filePath = `sandbox/${fileName}`;
   const expectedOutput = await fs.readFileSync(filePath, "utf-8");
 
   let message = "",

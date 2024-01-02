@@ -39,7 +39,7 @@ check_runtime_errors() {
     fi
 }
 
-if [ "$language" = "cpp" ]; then
+if [ "$language" = "javascript" ]; then
     g++ "$src" -o solution &> "$output"
     check_compile_errors
     /usr/bin/time -f "Time: %e\nMemory: %M" -o "$result" timeout "$timeLimit"s ./solution < "$input" > "$output" 2>&1
