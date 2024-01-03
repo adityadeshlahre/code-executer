@@ -39,13 +39,29 @@ check_runtime_errors() {
     fi
 }
 
-if [ "$language" = "javascript" ]; then
+cleanup() {
+    rm -f solution *.class
+}
+trap cleanup EXIT
+
+cleanup
+
+if [ "$language" = "cpp" ]; then
     g++ "$src" -o solution &> "$output"
     check_compile_errors
     /usr/bin/time -f "Time: %e\nMemory: %M" -o "$result" timeout "$timeLimit"s ./solution < "$input" > "$output" 2>&1
     check_runtime_errors
+elif [ "$language" = "javascript" ]; then
+    /usr/bin/time -f "Time: %e\nMemory: %M" -o "$result" timeout "$timeLimit"s node "$src" < "$input" > "$output" 2>&1
+    check_runtime_errors
+elif [ "$language" = "java" ]; then
+    javac "$src" -d . &> "$output" 2>&1
+    check_compile_errors
+    main_class=$(javap -public -classpath . "$(basename "$src" .java)" | grep 'public class' | awk '{print $3}' | sed 's/{//')
+    /usr/bin/time -f "Time: %e\nMemory: %M" -o "$result" timeout "$timeLimit"s java -cp . "$main_class" < "$input" > "$output" 2>&1
+    check_runtime_errors
 else
-    echo "Unsupported language: $language" > "$result"
+    echo "Error: Unsupported language: $language" > "$result"
     exit 1
 fi
 

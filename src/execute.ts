@@ -76,7 +76,7 @@ const getCommand = (
     -v "$(pwd)/sandbox/${inputFile}:/code-exec/input.txt" \
     -v "$(pwd)/sandbox/${outputFile}:/code-exec/output.txt" \
     -v "$(pwd)/sandbox/${resultFile}:/code-exec/result.txt" \
-    online-judge ${srcFile} input.txt output.txt result.txt ${language} ${timeLimit} ${memoryLimit}`;
+    judge ${srcFile} input.txt output.txt result.txt ${language} ${timeLimit} ${memoryLimit}`;
 };
 
 const getExecutionResult = async (): Promise<execute> => {
