@@ -9,18 +9,29 @@ const prepareFiles = async (
 ) => {
   let fileName = "";
   let filePath = "";
+  let fileExtension = "";
   switch (lang) {
     case "javascript":
-      fileName = "src.js";
-      filePath = `sandbox/${fileName}`;
-      fs.writeFileSync(filePath, src, (err: Error) => {
-        if (err) {
-          console.error("Error writing to file:", err);
-        } else {
-          console.log(`Data written to file ${fileName} successfully!`);
-        }
-      });
+      fileExtension = "js";
+      break;
+    case "java":
+      fileExtension = "java";
+      break;
+    case "cpp":
+      fileExtension = "cpp";
+      break;
+    default:
+      throw new Error(`Unsupported language: ${lang}`);
   }
+  fileName = `src.${fileExtension}`;
+  filePath = `sandbox/${fileName}`;
+  fs.writeFileSync(filePath, src, (err: Error) => {
+    if (err) {
+      console.error("Error writing to file:", err);
+    } else {
+      console.log(`Data written to file ${fileName} successfully!`);
+    }
+  });
   fileName = "input.txt";
   filePath = `sandbox/${fileName}`;
   fs.writeFileSync(filePath, input, (err: Error) => {
@@ -139,13 +150,13 @@ export const execute = async (
 ): Promise<execute> => {
   await prepareFiles(src, lang, input, expectedOutput);
   const command: string = getCommand(
-    "src.js",
-    "javascript",
+    src,
+    lang,
     "input.txt",
     "output.txt",
     "result.txt",
     "2",
-    "10000"
+    "1024"
   );
   return new Promise(async (resolve, reject) => {
     try {

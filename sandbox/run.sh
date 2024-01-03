@@ -40,7 +40,7 @@ check_runtime_errors() {
 }
 
 cleanup() {
-    rm -f solution *.class
+    rm -f solution *.class 2>/dev/null
 }
 trap cleanup EXIT
 

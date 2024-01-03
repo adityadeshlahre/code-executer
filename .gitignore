@@ -4,4 +4,6 @@ output.txt
 input.txt
 result.txt
 src.js
+src.cpp
+src.java
 expected_output.txt

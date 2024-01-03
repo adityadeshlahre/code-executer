@@ -6,7 +6,8 @@
   "scripts": {
     "docker": "cd sandbox && docker build . -t judge",
     "build": "tsc -b",
-    "start": "docker composer up -d",
+    "start": "tsc -b && node dist/index.js",
+    "docker:container": "docker composer up -d",
     "dev": "node dist/index.js"
   },
   "keywords": [],

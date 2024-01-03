@@ -1,4 +1,3 @@
-// javaTest.js
 import { sendMessage } from "./sendMessage";
 import { execute } from "./execute";
 
