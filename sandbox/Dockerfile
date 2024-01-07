@@ -1,12 +1,11 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
 WORKDIR /code-exec
 
-COPY ./run.sh .
+COPY . .
 
-RUN apt-get update && \
-    apt-get -y install sudo time g++ default-jdk nodejs npm && \
-    useradd -m docker && \
+RUN apk --update add sudo g++ openjdk11 nodejs npm && \
+    adduser -D docker && \
     echo "docker:docker" | chpasswd && \
     adduser docker sudo && \
     echo "docker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
@@ -14,4 +13,4 @@ RUN apt-get update && \
 
 USER docker
 
-CMD ["/code-exec/run.sh"]
+ENTRYPOINT [ "./run.sh" ]

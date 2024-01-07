@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docker": "cd sandbox && docker build . -t judge",
     "build": "tsc -b",
     "start": "tsc -b && node dist/index.js",
-    "docker:container": "docker composer up -d",
-    "dev": "node dist/index.js"
+    "dev": "node dist/index.js",
+    "test": "node dist/js.index.js && node dist/cpp.index.js && node dist/java.index.js"
   },
   "keywords": [],
   "author": "",
